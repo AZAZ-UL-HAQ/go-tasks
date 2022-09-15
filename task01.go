@@ -2,46 +2,32 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
-type Student struct {
-	rollnumber int
-	name       string
-	address    string
+type Person struct {
+	name   string
+	age    int
+	job    string
+	salary int
 }
 
-func NewStudent(rollno int, name string, address string) *Student {
-	s := new(Student)
-	s.rollnumber = rollno
-	s.name = name
-	s.address = address
-	return s
+func getName(Pers1 Person, Pers2 Person) {
+	fmt.Print(Pers1)
+	fmt.Print(Pers2)
 }
-
-type StudentList struct {
-	list []*Student
-}
-
-func (ls *StudentList) CreateStudent(rollno int, name string, address string) *Student {
-	st := NewStudent(rollno, name, address)
-	ls.list = append(ls.list, st)
-	return st
-}
-
-func (ls *StudentList) Print() {
-	for i := range ls.list {
-		fmt.Printf("%s List %d %s\n", strings.Repeat("=", 25), i, strings.Repeat("=", 25))
-		fmt.Printf("Student Rollno: %d\n", ls.list[i].rollnumber)
-		fmt.Printf("Student Name: %s\n", ls.list[i].name)
-		fmt.Printf("Student Address: %s\n\n", ls.list[i].address)
-
-	}
-}
-
 func main() {
-	student := new(StudentList)
-	student.CreateStudent(2000, "Azaz", "Khushan")
-	student.CreateStudent(1965, "Awais", "Wah Cantt")
-	student.Print()
+	Pers1 := Person{
+		name:   "Hege",
+		age:    45,
+		job:    "Teacher",
+		salary: 6000,
+	}
+
+	Pers2 := Person{
+		name:   "AZAZ",
+		age:    22,
+		job:    "NASA",
+		salary: 000,
+	}
+	getName(Pers1, Pers2)
 }
