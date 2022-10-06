@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 )
 
@@ -29,7 +30,7 @@ func NewBlock(transaction string, nonce int, previousHash string) *Block {
 func (b *Block) CreateHash(stringToHash string) {
 
 	sum := sha256.Sum256([]byte(stringToHash))
-	b.blockHash = string(sum[:])
+	b.blockHash = hex.EncodeToString(sum[:])
 
 }
 
@@ -40,9 +41,9 @@ func (b *Chain) ListBlocks() {
 	for i := range b.chainBlock {
 		fmt.Printf(" Tranaction is : %s \n", b.chainBlock[i].tranaction)
 		fmt.Printf(" Nonce is : %d  \n ", (b.chainBlock[i].nonce))
-		fmt.Printf(" Previous Hash is : %x  \n ", (b.chainBlock[i].previousHash))
+		fmt.Println("\n Previous Hash is :    ", (b.chainBlock[i].previousHash))
 		//fmt.Printf("%s :\n ",b.chainBlock[i].blockHash)
-		fmt.Printf(" BlockHash is : %x \n ", b.chainBlock[i].blockHash)
+		fmt.Println("\n  BlockHash is : \n ", b.chainBlock[i].blockHash)
 
 	}
 }
@@ -72,6 +73,7 @@ func (b *Chain) VerifyChain() {
 //function for calculating hash of a block
 
 func main() {
+
 	b1 := NewBlock("Azaz to Zaka", 2234, "0")
 	b2 := NewBlock("Zaka to Awais", 1234, b1.blockHash)
 	b3 := NewBlock("Awais to Ahmed", 2434, b2.blockHash)
