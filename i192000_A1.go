@@ -1,3 +1,4 @@
+#Main Package
 package main
 
 import (
@@ -5,19 +6,19 @@ import (
 	"encoding/hex"
 	"fmt"
 )
-
+#Block Structure
 type Block struct {
 	tranaction   string
 	nonce        int
 	previousHash string
 	blockHash    string
 }
-
+#Structure of Chain
 type Chain struct {
 	chainBlock []Block
 	chainHash  string
 }
-
+#NewBlock Function
 func NewBlock(transaction string, nonce int, previousHash string) *Block {
 	s := new(Block)
 	s.tranaction = transaction
@@ -26,14 +27,14 @@ func NewBlock(transaction string, nonce int, previousHash string) *Block {
 	s.CreateHash(s.tranaction + string(s.nonce) + s.previousHash)
 	return s
 }
-
+#CreateHash FUnction
 func (b *Block) CreateHash(stringToHash string) {
 
 	sum := sha256.Sum256([]byte(stringToHash))
 	b.blockHash = hex.EncodeToString(sum[:])
 
 }
-
+#List of Blocks
 func (b *Chain) ListBlocks() {
 	//A method to print all the blocks in a nice format showing block data such
 	//as transaction, nonce, previous hash, current block hash
@@ -47,12 +48,13 @@ func (b *Chain) ListBlocks() {
 
 	}
 }
+#Change Block
 func (b *Chain) ChangeBlock() {
 	//	function to change block transaction of the given block ref
 
 	b.chainBlock[1].nonce = 4
 }
-
+#Verify Chain
 func (b *Chain) VerifyChain() {
 
 	b.chainBlock[0].CreateHash(b.chainBlock[0].tranaction + string(b.chainBlock[0].nonce) + b.chainBlock[0].previousHash)
